@@ -72,7 +72,7 @@ func inspectFile(node ast.Node) bool {
 		out = append(
 			out,
 			fmt.Sprintf("func (m *%s) %s(%s) %s {", name, funcName, strings.Join(params, ", "), formatReturns(returns)),
-			fmt.Sprintf("\targs := o.Called(%s)", strings.Join(called, ", ")),
+			fmt.Sprintf("\targs := m.Called(%s)", strings.Join(called, ", ")),
 			fmt.Sprintf("\treturn %s", strings.Join(args, ", ")),
 			"}",
 			"",

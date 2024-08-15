@@ -11,10 +11,6 @@ import (
 	"strings"
 )
 
-const (
-	toErrFunc = "toErr"
-)
-
 func main() {
 	path := ""
 	if len(os.Args) > 1 {
@@ -43,12 +39,6 @@ func inspectFile(node ast.Node) bool {
 	out := []string{}
 	name := fmt.Sprintf("%sMock", t.Name.String())
 	out = append(out, fmt.Sprintf("type %s struct {", name), "\tmock.Mock", "}", "")
-	out = append(out, fmt.Sprintf(`func (m *%s) %s(obj interface{}) error {
-	if obj == nil {
-		return nil
-	}
-	return obj.(error)
-}`, name, toErrFunc))
 
 	for _, f := range i.Methods.List {
 		if len(f.Names) < 1 {
@@ -79,7 +69,7 @@ func inspectFile(node ast.Node) bool {
 			t := getType(r.Type)
 			arg := fmt.Sprintf("args.Get(%d)", i)
 			if t == "error" {
-				arg = fmt.Sprintf("m.%s(%s)", toErrFunc, arg)
+				arg = fmt.Sprintf("args.Error(%d)", i)
 			} else {
 				arg = fmt.Sprintf("%s.(%s)", arg, t)
 			}

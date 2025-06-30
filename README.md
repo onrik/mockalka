@@ -1,10 +1,10 @@
 # mockalka
 
-Mock generator for [github.com/stretchr/testify/mock](https://pkg.go.dev/github.com/stretchr/testify/mock)
+Golang mock generator without dependencies.
 
 Usage
 
 ```bash
-$ go install github.com/onrik/mockalka@latest
+$ go install github.com/onrik/mockalka/v2@latest
 $ mockalka ./example
 ```
